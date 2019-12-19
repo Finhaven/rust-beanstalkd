@@ -91,6 +91,11 @@ impl Beanstalkd {
         self.cmd(commands::stats()).map(parse::hashmap)
     }
 
+    /// Returns stats for the specified job
+    pub fn stats_job(&mut self, id: u64) -> BeanstalkdResult<HashMap<String, String>> {
+        self.cmd(commands::stats_job(id)).map(parse::hashmap)
+    }
+
     /// Add new tube to watch list
     pub fn watch(&mut self, tube: &str) -> BeanstalkdResult<u64> {
         self.cmd(commands::watch(tube)).map(parse::id)

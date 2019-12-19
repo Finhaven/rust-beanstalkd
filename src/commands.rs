@@ -36,6 +36,10 @@ pub fn stats() -> String {
     build("stats", vec![], "")
 }
 
+pub fn stats_job(id: u64) -> String {
+    build("stats-job", vec![id.to_string()], "")
+}
+
 pub fn watch(tube: &str) -> String {
     build("watch", vec![tube.to_string()], "")
 }
