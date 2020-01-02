@@ -46,7 +46,10 @@ impl<'a> Request<'a> {
             "RELEASED" => Status::RELEASED,
             "BURIED" => Status::BURIED,
             "TOUCHED" => Status::TOUCHED,
-            _ => return Err(BeanstalkdError::RequestError),
+            other => {
+                dbg!(&status_str);
+                return Err(BeanstalkdError::UnknownStatusError(other.to_string()));
+            },
         };
         let mut data = line.clone();
 
