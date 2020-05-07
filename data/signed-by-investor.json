@@ -1,0 +1,103 @@
+{
+  "allowComments": "true",
+  "allowMarkup": "false",
+  "allowReassign": "true",
+  "anySigner": "null",
+  "attachmentsUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/attachments",
+  "autoNavigation": "true",
+  "certificateUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/documents/certificate",
+  "createdDateTime": "2020-04-16T23:12:35.7630000Z",
+  "customFields": {
+    "listCustomFields": [],
+    "textCustomFields": [
+      {
+        "fieldId": "10425600474",
+        "name": "templateUsageRestriction",
+        "required": "false",
+        "show": "false",
+        "value": "allOptions"
+      }
+    ]
+  },
+  "customFieldsUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/custom_fields",
+  "documentsCombinedUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/documents/combined",
+  "documentsUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/documents",
+  "emailSubject": "Please DocuSign: VancouverFC Subscription Agreement template.pdf",
+  "enableWetSign": "true",
+  "envelopeId": "38c2e279-b850-433c-b52c-8a611db0b95d",
+  "envelopeIdStamping": "true",
+  "envelopeLocation": "current_site",
+  "envelopeUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d",
+  "expireAfter": "120",
+  "expireDateTime": "2020-08-14T23:12:38.9970000Z",
+  "expireEnabled": "true",
+  "initialSentDateTime": "2020-04-16T23:12:38.9970000Z",
+  "isSignatureProviderEnvelope": "false",
+  "lastModifiedDateTime": "2020-04-16T23:12:35.7630000Z",
+  "messageLock": "true",
+  "notificationUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/notification",
+  "purgeState": "unpurged",
+  "recipients": {
+    "agents": [],
+    "carbonCopies": [],
+    "certifiedDeliveries": [],
+    "currentRoutingOrder": "2",
+    "editors": [],
+    "inPersonSigners": [],
+    "intermediaries": [],
+    "recipientCount": "2",
+    "seals": [],
+    "signers": [
+      {
+        "completedCount": "1",
+        "creationReason": "sender",
+        "deliveredDateTime": "2020-04-16T23:12:57.0830000Z",
+        "deliveryMethod": "email",
+        "email": "evan+8@finhaven.com",
+        "firstName": "",
+        "lastName": "",
+        "name": "Janet Anne Money",
+        "recipientId": "1",
+        "recipientIdGuid": "350b6147-62ac-4997-85bb-fb3b54c1ada9",
+        "recipientType": "signer",
+        "requireIdLookup": "false",
+        "roleName": "Investor",
+        "routingOrder": "1",
+        "signedDateTime": "2020-04-16T23:13:19.2870000Z",
+        "status": "completed",
+        "userId": "e0a3abab-96d7-4f19-8c85-af2ba559a923"
+      },
+      {
+        "completedCount": "0",
+        "creationReason": "sender",
+        "deliveryMethod": "email",
+        "email": "qauser+vanfc@finhaven.com",
+        "firstName": "",
+        "lastName": "",
+        "name": "Karla Blum",
+        "recipientId": "2",
+        "recipientIdGuid": "f04a86e3-5c03-4f35-aa99-4e030b6324e0",
+        "recipientType": "signer",
+        "requireIdLookup": "false",
+        "roleName": "Issuer",
+        "routingOrder": "2",
+        "status": "sent",
+        "userId": "9062bff7-9398-4675-a7de-f225016c2e65"
+      }
+    ],
+    "witnesses": []
+  },
+  "recipientsLock": "true",
+  "recipientsUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/recipients",
+  "sender": {
+    "accountId": "9aa8dae2-af1f-46e0-aa69-c8bd641ffa6a",
+    "email": "qauser+compliance@finhaven.com",
+    "userId": "23757359-e2c8-46f3-b530-dea974551b32",
+    "userName": "Finhaven Compliance Team"
+  },
+  "sentDateTime": "2020-04-16T23:13:24.6300000Z",
+  "signingLocation": "online",
+  "status": "sent",
+  "statusChangedDateTime": "2020-04-16T23:13:19.2870000Z",
+  "templatesUri": "/envelopes/38c2e279-b850-433c-b52c-8a611db0b95d/templates"
+}
