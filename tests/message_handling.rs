@@ -1,3 +1,5 @@
+// Test the beanstalkd message handling
+
 extern crate beanstalkd;
 
 use beanstalkd::Beanstalkd;
@@ -54,6 +56,16 @@ fn handle_envelope_signed_by_investor_in_loop() {
 fn handle_large_message() {
     let mut beanstalkd = Beanstalkd::localhost().unwrap();
     beanstalkd.tube("large-file").unwrap();
+
+    // NOTE: Larger payloads being read off the TCP stream were not being read
+    // fully until the end of the message length. This created messages on the
+    // queue that were correct in size but the data was partially filled with
+    // the original 0 filled buffer contents. See request.rs:
+    // let mut tmp_vec: Vec<u8> = vec![0; bytes_count + 2];
+    // This caused deserialization issues for applications reading the message
+    // off the queue. The fix was to replace stream.read to stream.read_exact
+    // which reads to the end of the message indicated by the (bytes_count + 2)
+    // capacity value.
     let message = include_str!("../data/very-large-json-file.json");
     let _ = beanstalkd.put(message, 0, 0, 10000);
 
