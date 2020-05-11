@@ -66,6 +66,7 @@ impl<'a> Request<'a> {
             try!(self.stream.read_exact(payload_utf8));
             let payload_str = try!(from_utf8(&payload_utf8));
             data = data + &payload_str;
+            dbg!(data.clone());
         }
 
         Ok(Response {
