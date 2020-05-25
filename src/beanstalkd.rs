@@ -107,13 +107,26 @@ impl Beanstalkd {
     }
 
     /// Peeks the next ready job
-    ///
+    pub fn peek_ready(&mut self) -> BeanstalkdResult<Option<(u64, String)>> {
+        self.peek_cmd(commands::peek_ready())
+    }
+
+    /// Peeks the next delayed job
+    pub fn peek_delayed(&mut self) -> BeanstalkdResult<Option<(u64, String)>> {
+        self.peek_cmd(commands::peek_delayed())
+    }
+
+    /// Peeks the next buried job
+    pub fn peek_buried(&mut self) -> BeanstalkdResult<Option<(u64, String)>> {
+        self.peek_cmd(commands::peek_buried())
+    }
+
     /// Returns:
     /// - Ok(Some(_)) if a job is found
     /// - Ok(None) if no job found
     /// - Err(_) if an error occurred
-    pub fn peek_ready(&mut self) -> BeanstalkdResult<Option<(u64, String)>> {
-        self.cmd(commands::peek_ready())
+    fn peek_cmd(&mut self, message: String) -> BeanstalkdResult<Option<(u64, String)>> {
+        self.cmd(message)
             .map(|r| {
                 if r.status == Status::NOT_FOUND {
                     None
