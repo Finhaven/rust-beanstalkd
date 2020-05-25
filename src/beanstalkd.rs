@@ -121,16 +121,27 @@ impl Beanstalkd {
         self.peek_cmd(commands::peek_buried())
     }
 
-    // Delete all the jobs in the ready queue
+    /// Delete all the jobs in the ready state
     pub fn delete_all_ready(&mut self) -> BeanstalkdResult<()> {
-        loop {
-            match self.peek_ready()? {
-                Some((job_id, _)) => {
-                    self.delete(job_id)?
-                }
-                None => return Ok(())
-            }
-        }
+        self.delete_all_cmd(Self::peek_ready)
+    }
+
+    /// Delete all the jobs in the delayed state
+    pub fn delete_all_delayed(&mut self) -> BeanstalkdResult<()> {
+        self.delete_all_cmd(Self::peek_delayed)
+    }
+
+    /// Delete all the jobs in the buried state
+    pub fn delete_all_buried(&mut self) -> BeanstalkdResult<()> {
+        self.delete_all_cmd(Self::peek_buried)
+    }
+
+    /// Delete all jobs (in any state)
+    pub fn delete_all(&mut self) -> BeanstalkdResult<()> {
+        self.delete_all_ready()?;
+        self.delete_all_delayed()?;
+        self.delete_all_buried()?;
+        Ok(())
     }
 
     /// Returns:
@@ -147,6 +158,17 @@ impl Beanstalkd {
                     Some((parse::id(r.clone()), parse::body(r)))
                 }
             })
+    }
+
+    fn delete_all_cmd<PeekFn>(&mut self, peek: PeekFn) -> BeanstalkdResult<()>
+        where PeekFn: Fn(&mut Self) -> BeanstalkdResult<Option<(u64, String)>>
+    {
+        loop {
+            match peek(self)? {
+                Some((job_id, _)) => self.delete(job_id)?,
+                None => return Ok(()),
+            }
+        }
     }
 
     fn cmd(&mut self, message: String) -> BeanstalkdResult<Response> {
