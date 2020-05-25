@@ -121,6 +121,18 @@ impl Beanstalkd {
         self.peek_cmd(commands::peek_buried())
     }
 
+    // Delete all the jobs in the ready queue
+    pub fn delete_all_ready(&mut self) -> BeanstalkdResult<()> {
+        loop {
+            match self.peek_ready()? {
+                Some((job_id, _)) => {
+                    self.delete(job_id)?
+                }
+                None => return Ok(())
+            }
+        }
+    }
+
     /// Returns:
     /// - Ok(Some(_)) if a job is found
     /// - Ok(None) if no job found
