@@ -12,6 +12,8 @@ pub enum Status {
     RELEASED,
     BURIED,
     TOUCHED,
+    NOT_FOUND,
+    FOUND,
 }
 
 #[derive(Clone)]

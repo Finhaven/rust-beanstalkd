@@ -42,6 +42,8 @@ impl<'a> Request<'a> {
             "DELETED" => Status::DELETED,
             "WATCHING" => Status::WATCHING,
             "NOT_IGNORED" => Status::NOT_IGNORED,
+            "NOT_FOUND" => Status::NOT_FOUND,
+            "FOUND" => Status::FOUND,
             "TIMED_OUT" => Status::TIMED_OUT,
             "RELEASED" => Status::RELEASED,
             "BURIED" => Status::BURIED,
@@ -53,12 +55,15 @@ impl<'a> Request<'a> {
         };
         let mut data = line.clone();
 
-        if status == Status::OK || status == Status::RESERVED {
-            let segment_offset = match status {
-                Status::OK => 1,
-                Status::RESERVED => 2,
-                _ => return Err(BeanstalkdError::RequestError),
-            };
+        // These status codes indicate that there's a payload to decode
+        let segment_offset_opt = match status {
+            Status::OK => Some(1),
+            Status::RESERVED | Status::FOUND => Some(2),
+
+            _ => None,
+        };
+
+        if let Some(segment_offset) = segment_offset_opt {
             let bytes_count_str = try_option!(line_segments.get(segment_offset));
             let bytes_count: usize = try!(FromStr::from_str(*bytes_count_str));
             let mut tmp_vec: Vec<u8> = vec![0; bytes_count + 2]; // +2 needed for trailing line break

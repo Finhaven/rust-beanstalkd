@@ -106,6 +106,24 @@ impl Beanstalkd {
         self.cmd(commands::ignore(tube)).map(parse::count)
     }
 
+    /// Peeks the next ready job
+    ///
+    /// Returns:
+    /// - Ok(Some(_)) if a job is found
+    /// - Ok(None) if no job found
+    /// - Err(_) if an error occurred
+    pub fn peek_ready(&mut self) -> BeanstalkdResult<Option<(u64, String)>> {
+        self.cmd(commands::peek_ready())
+            .map(|r| {
+                if r.status == Status::NOT_FOUND {
+                    None
+                }
+                else {
+                    Some((parse::id(r.clone()), parse::body(r)))
+                }
+            })
+    }
+
     fn cmd(&mut self, message: String) -> BeanstalkdResult<Response> {
         let mut request = Request::new(&mut self.stream);
 

@@ -48,6 +48,10 @@ pub fn ignore(tube: &str) -> String {
     build("ignore", vec![tube.to_string()], "")
 }
 
+pub fn peek_ready() -> String {
+    build("peek-ready", vec![], "")
+}
+
 fn build(op: &str, args: Vec<String>, body: &str) -> String {
     let line_break = "\r\n";
     let space = " ";
