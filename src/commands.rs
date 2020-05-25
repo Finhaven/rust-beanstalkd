@@ -52,6 +52,14 @@ pub fn peek_ready() -> String {
     build("peek-ready", vec![], "")
 }
 
+pub fn peek_delayed() -> String {
+    build("peek-delayed", vec![], "")
+}
+
+pub fn peek_buried() -> String {
+    build("peek-buried", vec![], "")
+}
+
 fn build(op: &str, args: Vec<String>, body: &str) -> String {
     let line_break = "\r\n";
     let space = " ";
