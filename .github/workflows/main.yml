@@ -19,4 +19,3 @@ jobs:
         # Run commands using the runners shell
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-© 2020 GitHub, Inc.
