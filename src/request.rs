@@ -31,7 +31,15 @@ impl<'a> Request<'a> {
         let _ = self.stream.flush();
 
         let mut line = String::new();
-        try!(self.stream.read_line(&mut line));
+        match self.stream.read_line(&mut line) {
+            Ok(bytes_read) => {
+                // Zero bytes read indicates the TCP connection was closed.
+                if bytes_read == 0 {
+                    return Err(BeanstalkdError::ConnectionError)
+                }
+            },
+            Err(_) => return Err(BeanstalkdError::RequestError)
+        };
         let line_segments: Vec<&str> = line.trim().split(' ').collect();
         let status_str = try_option!(line_segments.first());
         let status = match *status_str {
