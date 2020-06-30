@@ -32,8 +32,9 @@ impl<'a> Request<'a> {
 
         let mut line = String::new();
         match self.stream.read_line(&mut line) {
-            Ok(e) => {
-                if e == 0 {
+            Ok(bytes_read) => {
+                // Zero bytes read indicates the TCP connection was closed.
+                if bytes_read == 0 {
                     return Err(BeanstalkdError::ConnectionError)
                 }
             },
